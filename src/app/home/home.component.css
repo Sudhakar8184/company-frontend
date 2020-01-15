@@ -1,0 +1,20 @@
+.mainhome{
+    background-color: blue;
+    height: 800px;
+}
+.home{
+    color: aliceblue
+}
+.home .search {
+    margin-top: 100px;
+    margin-left: 150px
+}
+
+.home .title {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 40px;
+}
+.home .table{
+    color: aliceblue
+}

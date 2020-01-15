@@ -1,0 +1,13 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="collapse navbar-collapse justify-content-between">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="">Home</a>
+    </div>
+    <div class="navbar-nav">
+      <a *ngIf="page=='login'" href="/signup" class="item">Signup</a>
+      <a *ngIf="(page=='signup' || (!page && !token))" href="/login" class="item">Login</a>
+      <a *ngIf="!page && token" (click)="logOut()" href="/login" class="item">logOut</a>
+
+    </div>
+  </div>
+</nav>

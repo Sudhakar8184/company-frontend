@@ -1,0 +1,41 @@
+<div class="mainhome">
+<app-header [page]="'login'"></app-header>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-4" style="margin-top:120px">
+      <h1 style="text-align: center;color:white">Sign In</h1>
+      <form  [formGroup]="userForm">
+        <div class="form-group">
+          <label style="color:white;font-size: 20px">Email</label>
+          <input type="text" class="form-control" formControlName="email" [(ngModel)]="userDetails.email" placeholder="Email">
+          <div *ngIf="userForm.controls['email'].touched&&!userForm.controls['email'].valid">
+            <p>Enter a valid email address</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label style="color:white;font-size: 20px">Password</label>
+          <input type="{{inputType}}" style="float: left;width: 90%;height: 38px;" class="form-control" formControlName="password"
+            [(ngModel)]="userDetails.password" placeholder="Password">
+          <span (click)="tooglepwd()"
+            style="background-color:white;height: 38px;float: left;width: 10%;border-radius: 4px 4px 4px 4px"
+            toggle="#password-form-group"><span style="margin-top: 13px;margin-left: 10px"
+              class="fa fa-fw fa-eye form-group-icon toggle-password"></span></span>
+          <div *ngIf="userForm.controls['password'].touched&&!userForm.controls['password'].valid">
+            <p>Enter a valid password minmum 5 length</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <p *ngIf="errorMessage">please enter correct email and password</p>
+        </div>
+        <div class="form-group" style="margin-top: 50px">
+            <input class="ui button" type="submit" (click)="onSubmit()" [disabled]="!userForm.valid" value="Login">
+          </div>
+        
+      </form>
+    </div>
+  </div>
+</div>
+</div>

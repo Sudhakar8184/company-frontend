@@ -1,0 +1,111 @@
+<div class="mainhome">
+
+  <app-header></app-header>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-2" style="margin-top:120px">
+        <div class="card">
+          <div class="card-body">
+              <h5 class="card-title" style="text-align: center">My Profile</h5>
+              <p class="card-text">name: {{userData?.name}}</p>
+              <p class="card-text">email: {{userData?.email}}</p>
+              <p class="card-text">phone: {{userData?.phone}}</p>
+              <p class="card-text">role: {{userData?.role}}</p>
+            </div>
+            </div>
+      </div>
+      <div class="col-md-4"  *ngIf="storageservice.role == 'admin'" style="margin-top:120px">
+        <h1 style="text-align: center;color:white">Add Team Members</h1>
+        <form class="ui form" [formGroup]="userForm">
+          <div class="form-group">
+            <label style="color:white;font-size: 20px">Full Name</label>
+            <input type="text" class="form-control" formControlName="name" 
+              placeholder="full Name">
+
+            <div *ngIf="userForm.controls['name'].touched&&!userForm.controls['name'].valid">
+              <p class="error-message">Enter a valid name</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label style="color:white;font-size: 20px">Email</label>
+            <input type="text" class="form-control" formControlName="email" 
+              placeholder="Email">
+            <div *ngIf="userForm.controls['email'].touched&&!userForm.controls['email'].valid">
+              <p class="error-message">Enter a valid email address</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label style="color:white;font-size: 20px">Phone Number</label>
+            <input type="text" class="form-control" formControlName="phone"
+              placeholder="phone">
+            <div *ngIf="userForm.controls['phone'].touched&&!userForm.controls['phone'].valid">
+              <p class="error-message">Enter a valid phone number</p>
+            </div>
+          </div>
+           <div class="form-group">
+            <label style="color:white;font-size: 20px">Designation</label>
+            <input type="text" class="form-control" formControlName="designation" 
+              placeholder="designation">
+            <div *ngIf="userForm.controls['designation'].touched&&!userForm.controls['designation'].valid">
+              <p class="error-message">Enter a valid Designation</p>
+            </div>
+          </div>
+        <div class="form-group">
+            <label style="color:white;font-size: 20px">reports To</label>
+ 
+            <div *ngFor="let users of reportsto; let i=index" class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" (click)="addUsers($event,users._id)" id="defaultUncheckedDisabled{{i}}">
+              <label style="color:white;font-size: 15px" class="custom-control-label" for="defaultUncheckedDisabled{{i}}">{{users.name}}</label>
+            </div>
+
+          
+          </div>
+          <div class="form-group">
+            <label style="color:white;font-size: 20px">Password</label>
+            <input type="{{inputType}}" style="float: left;width: 90%;height: 38px;" class="form-control"
+              formControlName="password" [(ngModel)]="userDetails.password" placeholder="Password">
+            <span (click)="tooglepwd()"
+              style="background-color:white;height: 38px;float: left;width: 10%;border-radius: 4px 4px 4px 4px"
+              toggle="#password-field"><span style="margin-top: 13px;margin-left: 10px"
+                class="fa fa-fw fa-eye field-icon toggle-password"></span></span>
+            <div *ngIf="userForm.controls['password'].touched&&!userForm.controls['password'].valid">
+              <p class="error-message">Enter a valid password minmum 5 length</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <p *ngIf="errorMessage" class="error-message">this email is already registed</p>
+          </div>
+          <div class="form-group" style="margin-top: 50px">
+            <button class="ui button" type="submit" (click)="onSubmit()" [disabled]="!userForm.valid">Submit</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-4" *ngIf="storageservice.role == 'user'" style="margin-top:120px">
+          <div class="card" >
+            <div class="card-body">
+              <h5 class="card-title">Reports To</h5>
+              <p class="card-text" *ngFor="let reportsto of userData?.reportsto.toreport; let i=index;">{{i+1}}){{reportsto.name}}</p>
+              <p *ngIf="!userData?.reportsto.toreport.length" class="card-text" >empty</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Reportees</h5>
+              <div class="row">
+                  <div class="col-md-6">
+                      <h6 class="card-subtitle mb-2 ">Direct</h6>
+                    <p class="card-text" *ngFor="let direct of userData?.reportsto.direct; let i=index;">{{i+1}}){{direct.name}}</p>
+                  </div>
+                  <div class="col-md-6">
+                      <h6 class="card-subtitle mb-2 ">InDirect</h6>
+                    <p class="card-text" *ngFor="let indirect of userData?.reportsto.indirect; let i=index;">{{i+1}}){{indirect.name}}</p>
+                  </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</div>
